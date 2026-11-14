@@ -1,0 +1,2966 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080d35">
+<title>FindCollege.ai — Find the Right Stream. Build the Right Career.</title>
+<meta name="description" content="Discover your interests, strengths and the right career direction with FindCollege.ai's research-backed assessment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --navy: #080d35;
+  --navy-deep: #050826;
+  --navy-card: #0d1344;
+  --purple-glow: #6325c9;
+  --violet: #8b5cf6;
+  --yellow: #ffd51e;
+  --yellow-hover: #ffc900;
+  --cyan: #00d5e8;
+  --rose: #e11d48;
+  --text-dark: #0f172a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+  background-color: var(--navy);
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  overflow-wrap: anywhere;
+}
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+img, svg { max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; border: none; background: none; }
+.wrap { width: min(1180px, calc(100% - 24px)); margin: 0 auto; }
+
+/* NAVBAR */
+.nav {
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 13, 53, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+}
+/* GOTHAM BRAND FONT SPECIFICATION FOR CAPITAL "FINDCOLLEGE.AI" */
+@font-face {
+  font-family: 'Gotham';
+  src: local('Gotham'), local('Gotham-Book'), local('Gotham Book'), local('Gotham-Medium');
+  font-weight: 400 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: local('Gotham-Bold'), local('Gotham Bold'), local('Gotham-Black');
+  font-weight: 700 900;
+  font-style: normal;
+}
+.brand-findcollege {
+  font-family: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 400 !important; /* FINDCOLLEGE in normal weight */
+  letter-spacing: -0.2px;
+}
+.brand-findcollege span,
+.brand-findcollege .brand-ai {
+  font-family: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 800 !important; /* .AI always in bold */
+  color: var(--cyan) !important;
+}
+
+.navin {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.logo {
+  font-size: clamp(16px, 3.8vw, 21px);
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.navlinks a:not(.navcta) {
+  color: #f1f5f9;
+  transition: color 0.2s;
+}
+.navlinks a:not(.navcta):hover { color: var(--yellow); }
+.navcta, .yellowbtn {
+  background: var(--yellow);
+  color: #080d35;
+  border-radius: 999px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px rgba(255, 213, 30, 0.35);
+  cursor: pointer;
+}
+.navcta {
+  padding: 9px 20px;
+  font-size: 13px;
+}
+.yellowbtn {
+  padding: 14px 28px;
+  font-size: 16px;
+}
+.navcta:hover, .yellowbtn:hover {
+  transform: translateY(-2px);
+  background: var(--yellow-hover);
+  box-shadow: 0 6px 24px rgba(255, 213, 30, 0.55);
+}
+.hamb {
+  display: none;
+  color: #ffffff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.hamb:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  background-color: #070c32;
+  overflow: hidden;
+  min-height: 610px;
+}
+.hero-bg-art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-path-img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: right bottom;
+}
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #070c32 0%, #070c32 27%, rgba(7, 12, 50, 0.75) 34%, transparent 42%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 46% 54%;
+  min-height: 610px;
+  align-items: center;
+}
+.hero-copy {
+  padding: 30px 0 50px;
+  max-width: 420px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(79, 70, 229, 0.28);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 14px;
+}
+.pill-zap {
+  color: var(--yellow);
+  fill: var(--yellow);
+  width: 14px;
+  height: 14px;
+}
+.hero h1 {
+  font-size: clamp(32px, 3.2vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  margin-bottom: 14px;
+  font-weight: 900;
+}
+.brush {
+  display: inline-block;
+  background: var(--yellow);
+  color: #080d35;
+  padding: 2px 10px 4px 8px;
+  transform: skew(-4deg);
+  border-radius: 6px;
+  box-shadow: 4px 3px 0 rgba(233, 169, 0, 0.8);
+  margin-top: 4px;
+}
+.hero-desc {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #cbd5e1;
+  margin-bottom: 18px;
+  max-width: 400px;
+}
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 16px;
+}
+.feature {
+  text-align: center;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+.feature:last-child { border-right: none; }
+.feat-icon {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+}
+.feat-icon i {
+  width: 26px;
+  height: 26px;
+  color: #ffffff;
+}
+.feat-label {
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.old-price {
+  font-size: 19px;
+  font-weight: 800;
+  color: #94a3b8;
+  position: relative;
+  text-decoration: line-through;
+  text-decoration-color: #ef4444;
+  text-decoration-thickness: 2px;
+}
+.new-price-badge {
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 900;
+  color: var(--yellow);
+  border: 3px solid var(--yellow);
+  border-radius: 999px;
+  padding: 4px 16px;
+  transform: rotate(-5deg);
+  display: inline-block;
+  background: rgba(8, 13, 53, 0.7);
+}
+.off-badge {
+  background: #ed2338;
+  border-radius: 8px;
+  padding: 5px 12px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  box-shadow: 0 4px 12px rgba(237, 35, 56, 0.4);
+}
+.off-main {
+  font-size: 14px;
+  font-weight: 900;
+}
+.off-sub {
+  font-size: 9px;
+  font-weight: 700;
+  opacity: 0.95;
+}
+.hero-btn {
+  width: 100%;
+  max-width: 370px;
+  padding: 13px 24px;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.trust-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.trust-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.trust-row i {
+  width: 15px;
+  height: 15px;
+  color: #38bdf8;
+}
+
+/* FLOATING OFFER BAR */
+.offer-wrap {
+  position: relative;
+  z-index: 10;
+  margin-top: -46px;
+  margin-bottom: 14px;
+}
+.offer-card {
+  background: linear-gradient(90deg, #ffeef6 0%, #fff7fb 50%, #fdeef9 100%);
+  color: #1e1b4b;
+  border-radius: 60px;
+  padding: 10px 28px;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1.2fr;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.12), 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffd4e5;
+}
+.offer-left, .offer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.offer-icon i {
+  color: var(--rose);
+  width: 44px;
+  height: 44px;
+}
+.offer-info h3 {
+  font-size: 19px;
+  font-weight: 900;
+  color: #d91f32;
+  font-style: italic;
+  line-height: 1.15;
+}
+.offer-info p {
+  font-size: 12px;
+  line-height: 1.3;
+  color: #334155;
+  margin-top: 2px;
+  font-weight: 600;
+}
+.offer-center {
+  border-left: 1px solid #e2c0d5;
+  border-right: 1px solid #e2c0d5;
+  padding: 0 16px;
+  text-align: center;
+}
+.count-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #475569;
+  margin-bottom: 4px;
+}
+.timer-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+.timebox {
+  background: #fbcfe8;
+  border-radius: 8px;
+  min-width: 54px;
+  padding: 4px 6px;
+  box-shadow: 0 2px 6px rgba(157, 23, 77, 0.15);
+}
+.timebox b {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  color: #be123c;
+  font-weight: 900;
+}
+.timebox small {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  color: #881337;
+  margin-top: 2px;
+}
+
+/* RESEARCH-BACKED ASSESSMENT SHOWCASE */
+.showcase {
+  padding: 24px 0 16px;
+  background: radial-gradient(ellipse at 85% 45%, #581c87 0%, transparent 45%), linear-gradient(115deg, #0e133e 0%, #171752 65%, #3d1566 100%);
+  position: relative;
+}
+.showgrid {
+  display: grid;
+  grid-template-columns: 48% 52%;
+  align-items: center;
+  gap: 28px;
+}
+.laptop-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 530px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sparkles-laptop {
+  position: absolute;
+  top: -8px;
+  right: 6%;
+  z-index: 5;
+  pointer-events: none;
+}
+.laptop-report-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.52));
+  transition: transform 0.3s ease;
+}
+.laptop-report-img:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+.quick-assess-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+.quick-assess-card {
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.quick-assess-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+.quick-stream {
+  background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);
+  border: 1.5px solid #d8b4fe;
+}
+.quick-career {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+  border: 1.5px solid #99f6e4;
+}
+.quick-icon-wrap {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+}
+.quick-stream .quick-icon-wrap {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+.quick-career .quick-icon-wrap {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+.quick-icon-wrap i {
+  width: 22px;
+  height: 22px;
+}
+.quick-info {
+  flex: 1;
+  min-width: 0;
+}
+.quick-info h4 {
+  font-size: 17px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 1px;
+  letter-spacing: -0.3px;
+}
+.quick-target {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  margin: 0 0 3px !important;
+  line-height: 1.2;
+}
+.quick-time {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.quick-time i {
+  width: 12px;
+  height: 12px;
+}
+.quick-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.quick-assess-card:hover .quick-arrow {
+  transform: translateX(3px);
+}
+.quick-stream .quick-arrow {
+  background: #7c3aed;
+}
+.quick-career .quick-arrow {
+  background: #0d9488;
+}
+.quick-arrow i {
+  width: 16px;
+  height: 16px;
+}
+.showcopy h2 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.1;
+  font-weight: 900;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+.yellow-highlight {
+  color: var(--yellow);
+}
+.showcopy p {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+  max-width: 520px;
+}
+.assess-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 24px;
+}
+.assess-card-detailed {
+  border-radius: 24px;
+  padding: 24px 26px;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+.assess-card-detailed:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.35);
+}
+.stream-card {
+  background: linear-gradient(150deg, #ffffff 0%, #faf5ff 55%, #f3e8ff 100%);
+  border: 1.5px solid #d8b4fe;
+}
+.career-card {
+  background: linear-gradient(150deg, #ffffff 0%, #f0fdfa 55%, #e0f2fe 100%);
+  border: 1.5px solid #7dd3fc;
+}
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.audience-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 13px;
+  border-radius: 999px;
+  letter-spacing: -0.2px;
+}
+.stream-badge {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+.career-badge {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+.duration-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  background: rgba(15, 23, 42, 0.06);
+  padding: 4px 11px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.duration-badge i {
+  width: 13px;
+  height: 13px;
+}
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.card-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.stream-icon {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.career-icon {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.card-icon-wrap i {
+  width: 24px;
+  height: 24px;
+}
+.card-title-row h3 {
+  font-size: 21px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+}
+.card-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #475569;
+  margin-bottom: 16px;
+}
+.card-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.spec-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.stream-card .spec-box { border: 1px solid #e9d5ff; }
+.career-card .spec-box { border: 1px solid #bae6fd; }
+.spec-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.stream-card .spec-label { color: #7c3aed; }
+.career-card .spec-label { color: #0284c7; }
+.spec-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+}
+.card-features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+.card-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #334155;
+  font-weight: 600;
+}
+.check-icon {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.stream-check {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.career-check {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+.check-icon i {
+  width: 11px;
+  height: 11px;
+  stroke-width: 3;
+}
+.card-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+.assess-primary-btn {
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13.5px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+.stream-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+.stream-btn:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+}
+.career-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+}
+.career-btn:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+}
+.assess-primary-btn i {
+  width: 16px;
+  height: 16px;
+}
+.assess-sample-btn {
+  background: #ffffff;
+  border: 1.5px solid #d8b4fe;
+  color: #6d28d9;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.08);
+}
+.assess-sample-btn:hover {
+  background: #f5f0ff;
+  border-color: #a855f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.18);
+}
+.career-card .assess-sample-btn {
+  border-color: #7dd3fc;
+  color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08);
+}
+.career-card .assess-sample-btn:hover {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.18);
+}
+.assess-sample-btn i {
+  width: 15px;
+  height: 15px;
+}
+
+/* REPORT BENEFITS BAR */
+.benefits-bar {
+  margin-top: 18px;
+  background: #090e38;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 28px;
+  padding: 12px 24px;
+  display: grid;
+  grid-template-columns: 1.55fr repeat(5, 1fr);
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.benefithead {
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 900;
+  color: #ffffff;
+}
+.benefit-underline {
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--yellow);
+  border-radius: 999px;
+  transform: rotate(-3deg);
+  margin-top: 6px;
+}
+.benefit {
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0 8px;
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+.benefit i, .benefit svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 5px;
+  color: #ffffff;
+}
+
+/* HOW IT WORKS SECTION */
+.how {
+  background: linear-gradient(180deg, #f5efff 0%, #ffffff 85%);
+  color: #0f172a;
+  padding: 22px 0 28px;
+}
+.how-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.sectiontitle {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 900;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sparkles-how {
+  display: inline-block;
+  vertical-align: middle;
+}
+.sectionsub {
+  font-size: 13px;
+  color: #475569;
+  margin-top: 4px;
+  font-weight: 600;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: flex-start;
+  gap: 8px;
+}
+.step:not(:last-child):after {
+  content: "→";
+  position: absolute;
+  right: -14px;
+  top: 22px;
+  font-size: 24px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+.stepicon {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+}
+.step:nth-child(1) .stepicon { background: #ede9fe; color: #7c3aed; }
+.step:nth-child(2) .stepicon { background: #dcfce7; color: #16a34a; }
+.step:nth-child(3) .stepicon { background: #ede9fe; color: #7c3aed; }
+.step:nth-child(4) .stepicon { background: #e0f2fe; color: #0284c7; }
+.stepicon i { width: 30px; height: 30px; }
+.num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ede9fe;
+  color: #6d28d9;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 12px;
+}
+.step:nth-child(2) .num { background: #dcfce7; color: #15803d; }
+.step:nth-child(4) .num { background: #e0f2fe; color: #0369a1; }
+.step-text h3 {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+.step-text p {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #475569;
+}
+
+/* REAL STUDENTS & WHY CHOOSE US */
+.proof {
+  padding: 24px 0 28px;
+  background: radial-gradient(ellipse at 25% 90%, #581c87 0%, transparent 40%), linear-gradient(110deg, #090e38 0%, #0d123d 55%, #1e114a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.proofgrid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.testimonials h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+.testi-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  gap: 12px;
+}
+.testimonials .sub {
+  font-size: 12.5px;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+}
+.testi-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 210, 30, 0.35);
+  border-radius: 999px;
+  padding: 4px 12px;
+  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+}
+.testi-stars {
+  color: #ffd21e;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.testi-score {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #ffffff;
+}
+.testi-count {
+  font-size: 10.5px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.testimonial-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+.girl-wrap {
+  width: 170px;
+  height: 195px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 36px 36px 0 0;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}
+.student-girl-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 25% 18%;
+  display: block;
+}
+.quote-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(62, 26, 128, 0.95) 0%, rgba(46, 17, 98, 0.95) 100%);
+  border: 1px solid rgba(192, 132, 252, 0.45);
+  border-radius: 20px;
+  padding: 16px 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+.quote-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.quote-symbol {
+  display: block;
+  color: var(--yellow);
+  font-size: 38px;
+  line-height: 0.8;
+  font-family: Georgia, serif;
+}
+.verified-student-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #86efac;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.verified-student-tag i {
+  width: 12px;
+  height: 12px;
+}
+.quote-text {
+  font-size: 13.5px;
+  line-height: 1.42;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.quote-author-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 8px;
+}
+.quote-author-name {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #ffffff;
+  display: block;
+}
+.quote-author-school {
+  font-size: 10.5px;
+  color: #cbd5e1;
+  display: block;
+  margin-top: 1px;
+}
+.quote-stars-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.quote-stars-wrap .stars {
+  color: var(--yellow);
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.star-rating-val {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffd21e;
+}
+.quote-decision-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.28);
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.decision-icon {
+  color: #00d5e8;
+  display: flex;
+  align-items: center;
+}
+.decision-icon i {
+  width: 13px;
+  height: 13px;
+}
+.decision-text b {
+  color: #fef08a;
+  font-weight: 700;
+}
+.match-score {
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.18);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Micro-stats strip underneath testimonial */
+.testi-stats-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 8px 14px;
+  margin-top: 14px;
+}
+.testi-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.tsi-num {
+  font-size: 14px;
+  font-weight: 900;
+  color: #ffd21e;
+  line-height: 1.1;
+}
+.tsi-label {
+  font-size: 9.5px;
+  color: #cbd5e1;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.tsi-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* WHY CHOOSE US */
+.why {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.why-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.why h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 0;
+  letter-spacing: -0.01em;
+}
+.why-trust-shield {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #00d5e8;
+  background: rgba(0, 213, 232, 0.12);
+  border: 1px solid rgba(0, 213, 232, 0.35);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+.why-trust-shield i {
+  width: 12px;
+  height: 12px;
+}
+.whygrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+}
+.whyitem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+  transition: all 0.2s ease;
+}
+.whyitem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(192, 132, 252, 0.35);
+  transform: translateY(-2px);
+}
+.whyicon {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #6b21a8;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-top: 1px;
+}
+.whyicon i { width: 20px; height: 20px; }
+.whyinfo b {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+.whyinfo small {
+  font-size: 10px;
+  line-height: 1.35;
+  color: #cbd5e1;
+  display: block;
+}
+
+/* Why trust footer seals */
+.why-trust-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-top: 14px;
+}
+.trust-seal-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+.trust-seal-item i {
+  width: 12px;
+  height: 12px;
+  color: #00d5e8;
+}
+.trust-seal-sep {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+}
+
+/* FAQS SECTION */
+.faq-section {
+  background: linear-gradient(180deg, #f5efff 0%, #ffffff 100%);
+  padding: 22px 0 26px;
+}
+.faq-container {
+  background: #ffffff;
+  border: 1px solid #dcd3ff;
+  border-radius: 28px;
+  padding: 22px 28px;
+  display: grid;
+  grid-template-columns: 26% 1fr;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.08);
+}
+.faq-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.faq-icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.faq-header h2 {
+  font-size: 21px;
+  line-height: 1.15;
+  font-weight: 900;
+  color: #0f172a;
+}
+.faq-yellow-wrap {
+  position: relative;
+  display: inline-block;
+}
+.faq-brush {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 4px;
+  background: var(--yellow);
+  border-radius: 4px;
+}
+.faq-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+}
+.faq-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.faqitem {
+  border: 1px solid #d4c5ff;
+  border-radius: 999px;
+  background: #f8f6ff;
+  overflow: hidden;
+  transition: all 0.22s ease;
+}
+.faqitem.open {
+  border-radius: 18px;
+  background: #ffffff;
+  border-color: #8b5cf6;
+  box-shadow: 0 6px 18px rgba(109, 40, 217, 0.09);
+}
+.faqquestion {
+  width: 100%;
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 11.8px;
+  color: #0f172a;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
+  border: none;
+}
+.faq-plus {
+  font-size: 18px;
+  font-weight: 500;
+  color: #6d28d9;
+  line-height: 1;
+  transition: transform 0.22s ease, color 0.22s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.faqitem.open .faq-plus {
+  transform: rotate(45deg);
+  color: #ef4444;
+}
+.faqanswer {
+  display: none;
+  padding: 0 18px 14px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #334155;
+}
+.faqanswer strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+.faqanswer p {
+  margin: 0;
+}
+.faqitem.open .faqanswer { display: block; }
+
+/* FINAL CTA */
+.finalcta {
+  position: relative;
+  text-align: center;
+  padding: 24px 16px 36px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 120%, #9333ea 0%, transparent 50%), linear-gradient(180deg, #1b0c44 0%, #080727 100%);
+}
+.finalcta h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+.finalcta p {
+  font-size: 13px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+.finalcta-btn-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+.final-cta-btn {
+  padding: 13px 32px;
+  font-size: 17px;
+}
+.finalcta-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  pointer-events: none;
+  opacity: 0.75;
+  overflow: hidden;
+  max-width: 100%;
+}
+.finalcta-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* FOOTER */
+footer {
+  background: #050826;
+  color: #94a3b8;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* RESPONSIVE DESIGN - SYSTEMATIC DEVICE ADAPTATION (240px to 1280px+) */
+
+/* Tier 1: Tablets & Small Desktops (<= 1040px) */
+@media (max-width: 1040px) {
+  .navlinks { gap: 16px; font-size: 12px; }
+  .navcta { padding: 8px 16px; font-size: 12px; }
+  .showgrid { gap: 20px; }
+  .quick-assess-row { gap: 10px; }
+  .quick-assess-card { padding: 10px 12px; }
+  .quick-info h4 { font-size: 15px; }
+  .quick-target { font-size: 10.5px; }
+}
+
+/* Tier 2: Mid Tablets, Foldable Full View & Large Phones (<= 920px) */
+@media (max-width: 920px) {
+  .hamb { display: flex; }
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: rgba(9, 14, 56, 0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+  }
+  .navlinks.show { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-copy { max-width: 100%; padding: 24px 0 36px; }
+  .hero-bg-art { opacity: 0.30; }
+  .hero-gradient-overlay { background: rgba(7, 12, 50, 0.88); }
+  .offer-card { grid-template-columns: 1fr; border-radius: 28px; gap: 14px; text-align: center; }
+  .offer-left, .offer-right { justify-content: center; }
+  .offer-center {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #e2c0d5;
+    border-bottom: 1px solid #e2c0d5;
+    padding: 10px 0;
+  }
+  .showgrid { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+  .laptop-wrap { max-width: min(530px, 94%); margin: 0 auto; }
+  .showcopy p { margin: 0 auto 16px; }
+  .quick-assess-row { max-width: 600px; margin: 14px auto 0; text-align: left; }
+  .assess-cards-container { grid-template-columns: 1fr; }
+  .benefits-bar { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .benefithead { grid-column: 1 / -1; text-align: center; }
+  .benefit-underline { margin: 6px auto; }
+  .benefit:nth-child(2), .benefit:nth-child(5) { border-left: none; }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
+  .step:not(:last-child):after { display: none; }
+  .proofgrid { grid-template-columns: 1fr; gap: 24px; }
+  .why {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 0;
+    padding-top: 20px;
+  }
+  .faq-container { grid-template-columns: 1fr; gap: 16px; }
+  .faq-header { justify-content: center; text-align: center; flex-direction: column; }
+}
+
+/* Tier 3: Standard Mobile Viewport (<= 640px) */
+@media (max-width: 640px) {
+  .hero h1 { font-size: clamp(26px, 7vw, 36px); }
+  .quick-assess-row { grid-template-columns: 1fr; gap: 10px; }
+  .benefits-bar { grid-template-columns: repeat(2, 1fr); }
+  .benefit:nth-child(odd) { border-left: none; }
+  .testi-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .testimonial-box { flex-direction: column; text-align: center; }
+  .girl-wrap { width: 140px; height: 150px; margin: 0 auto; }
+  .quote-author-row { flex-direction: column; align-items: center; gap: 6px; }
+  .quote-author-info { text-align: center; }
+  .quote-decision-pill { flex-direction: column; gap: 4px; text-align: center; }
+  .match-score { margin-left: 0; }
+  .testi-stats-strip { flex-wrap: wrap; gap: 10px; }
+  .tsi-divider { display: none; }
+  .whygrid { grid-template-columns: 1fr; }
+  .why-trust-footer { flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .trust-seal-sep { display: none; }
+  .faq-columns { grid-template-columns: 1fr; gap: 8px; }
+  .card-top-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .card-specs-grid { grid-template-columns: 1fr; gap: 8px; }
+  .card-footer-actions { flex-direction: column; align-items: stretch; text-align: center; }
+  .assess-primary-btn { justify-content: center; width: 100%; }
+  .assess-sample-btn { justify-content: center; width: 100%; }
+  .final-cta-btn { font-size: 15px; padding: 12px 20px; width: 100%; }
+}
+
+/* Tier 4: Compact Mobile & Foldable Cover Screen (<= 380px) */
+@media (max-width: 380px) {
+  .wrap { width: calc(100% - 16px); }
+  .nav { height: 58px; }
+  .logo { font-size: 17px; }
+  .hero-copy { padding: 18px 0 28px; }
+  .hero h1 { font-size: clamp(22px, 6.8vw, 28px); }
+  .brush {
+    font-size: clamp(20px, 6.5vw, 26px);
+    padding: 2px 7px 3px 6px;
+    box-shadow: 2px 2px 0 rgba(233, 169, 0, 0.8);
+  }
+  .hero-desc { font-size: 12.5px; }
+  .features { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .feature { padding: 0 4px; font-size: 9.5px; }
+  .feat-icon i { width: 22px; height: 22px; }
+  .price-row { gap: 8px; }
+  .old-price { font-size: 16px; }
+  .new-price-badge { font-size: 26px; padding: 2px 12px; }
+  .off-badge { font-size: 12px; padding: 4px 8px; }
+  .hero-btn { font-size: 14px; padding: 11px 14px; }
+  .trust-row { gap: 8px; font-size: 9.5px; flex-wrap: wrap; }
+  .offer-wrap { margin-top: -30px; }
+  .offer-card { padding: 10px 12px; border-radius: 18px; }
+  .offer-info h3 { font-size: 16px; }
+  .timebox { min-width: 46px; padding: 3px 4px; }
+  .timebox b { font-size: 17px; }
+  .timebox small { font-size: 8.5px; }
+  .steps { grid-template-columns: 1fr; gap: 14px; }
+  .step { grid-template-columns: 24px 1fr; }
+  .assess-card-detailed { padding: 16px 14px; border-radius: 18px; }
+  .card-title-row h3 { font-size: 18px; }
+  .card-desc { font-size: 12px; }
+  .spec-val { font-size: 11.5px; }
+  .card-features-list li { font-size: 11.5px; }
+  .benefits-bar { border-radius: 20px; padding: 10px 14px; }
+  .final-cta-btn { font-size: 13.5px; padding: 11px 14px; }
+}
+
+/* Tier 5: Ultra-compact Feature Phones (e.g. JioPhone 2 <= 260px) */
+@media (max-width: 260px) {
+  .wrap { width: calc(100% - 10px); }
+  .navin { gap: 6px; }
+  .logo { font-size: 14px; letter-spacing: -0.8px; }
+  .hamb { min-width: 32px; min-height: 32px; padding: 2px; }
+  .pill { font-size: 9px; padding: 3px 8px; }
+  .hero-copy { padding: 12px 0 20px; }
+  .hero h1 { font-size: 18px; line-height: 1.1; margin-bottom: 8px; }
+  .brush { font-size: 17px; padding: 1px 5px 2px; }
+  .hero-desc { font-size: 11px; margin-bottom: 12px; }
+  .features { grid-template-columns: 1fr; gap: 4px; border-bottom: none; }
+  .feature {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 0;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9.5px;
+  }
+  .feat-icon { margin-bottom: 0; }
+  .feat-icon i { width: 16px; height: 16px; }
+  .price-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .new-price-badge { transform: none; font-size: 20px; padding: 2px 8px; }
+  .hero-btn { font-size: 11.5px; padding: 9px 8px; }
+  .trust-row { flex-direction: column; align-items: flex-start; gap: 3px; font-size: 9px; }
+  .offer-wrap { margin-top: -14px; }
+  .offer-card { padding: 6px 8px; border-radius: 12px; }
+  .offer-info h3 { font-size: 13px; }
+  .offer-info p { font-size: 10px; }
+  .timer-boxes { gap: 4px; }
+  .timebox { min-width: 36px; padding: 2px 3px; border-radius: 6px; }
+  .timebox b { font-size: 13px; }
+  .timebox small { font-size: 7.5px; }
+  .showcase { padding: 14px 0; }
+  .showcopy h2 { font-size: 17px; }
+  .showcopy p { font-size: 10.5px; }
+  .quick-assess-card { padding: 6px 8px; gap: 6px; border-radius: 12px; }
+  .quick-icon-wrap { width: 30px; height: 30px; border-radius: 8px; }
+  .quick-icon-wrap i { width: 16px; height: 16px; }
+  .quick-info h4 { font-size: 13px; }
+  .quick-target { font-size: 9.5px; }
+  .quick-time { font-size: 8.5px; }
+  .quick-arrow { width: 22px; height: 22px; }
+  .quick-arrow i { width: 12px; height: 12px; }
+  .assess-card-detailed { padding: 10px 10px; border-radius: 12px; }
+  .card-icon-wrap { width: 32px; height: 32px; border-radius: 8px; }
+  .card-icon-wrap i { width: 16px; height: 16px; }
+  .card-title-row h3 { font-size: 14px; }
+  .card-desc { font-size: 10.5px; }
+  .spec-box { padding: 6px 8px; border-radius: 8px; }
+  .spec-label { font-size: 8px; }
+  .spec-val { font-size: 10px; }
+  .card-features-list li { font-size: 10px; }
+  .assess-primary-btn { font-size: 11px; padding: 8px 10px; }
+  .assess-sample-btn { font-size: 10px; padding: 7px 10px; }
+  .benefits-bar { grid-template-columns: 1fr; border-radius: 12px; padding: 8px 10px; gap: 6px; }
+  .benefithead { font-size: 13px; }
+  .benefit {
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-align: left;
+    font-size: 9.5px;
+  }
+  .benefit:last-child { border-bottom: none; }
+  .benefit i, .benefit svg { margin: 0; width: 16px; height: 16px; }
+  .sectiontitle { font-size: 18px; }
+  .sectionsub { font-size: 10.5px; }
+  .testimonials h2 { font-size: 16px; }
+  .girl-wrap { width: 90px; height: 95px; }
+  .quote-card { padding: 8px 10px; border-radius: 12px; }
+  .quote-text { font-size: 10.5px; }
+  .quote-symbol { font-size: 26px; }
+  .testi-stats-strip { flex-direction: column; gap: 4px; padding: 4px 8px; }
+  .tsi-num { font-size: 12px; }
+  .tsi-label { font-size: 8.5px; }
+  .why h2 { font-size: 16px; }
+  .whyitem { padding: 6px 8px; }
+  .whyicon { width: 28px; height: 28px; }
+  .whyicon i { width: 14px; height: 14px; }
+  .whyinfo b { font-size: 10.5px; }
+  .whyinfo small { font-size: 9px; }
+  .faq-container { padding: 10px 10px; border-radius: 14px; }
+  .faq-header h2 { font-size: 15px; }
+  .faqquestion { font-size: 9.5px; padding: 6px 8px; }
+  .faqanswer { font-size: 9px; padding: 0 8px 8px; }
+  .finalcta { padding: 14px 8px 18px; }
+  .finalcta h2 { font-size: 16px; }
+  .finalcta p { font-size: 10.5px; }
+  .final-cta-btn { font-size: 11px; padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION BAR -->
+<header class="nav">
+  <div class="wrap navin">
+    <a class="logo brand-findcollege" href="#top">FINDCOLLEGE<span class="brand-ai">.AI</span></a>
+    <button class="hamb" id="hamb" aria-label="Open navigation" aria-expanded="false">
+      <i data-lucide="menu"></i>
+    </button>
+    <nav class="navlinks" id="navlinks">
+      <a href="#assessments">Assessments</a>
+      <a href="#how">How It Works</a>
+      <a href="#report">Sample Report</a>
+      <a href="#stories">Success Stories</a>
+      <a href="#faqs">FAQs</a>
+      <a class="navcta" href="#assessment-start">Start Assessment <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-bg-art">
+    <img src="Choosing the Right Path.png" alt="Choosing the Right Career Path" class="hero-path-img">
+    <div class="hero-gradient-overlay"></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="pill">
+        <i data-lucide="zap" class="pill-zap"></i>
+        <span>AI-Powered Career &amp; Stream Assessment</span>
+      </div>
+      <h1>
+        You Know Your Marks.<br>
+        But Do You Know<br>
+        <span class="brush">Your Strengths?</span>
+      </h1>
+      <p class="hero-desc">
+        A scientific assessment that helps you discover your interests, strengths and the right career direction — with clarity and confidence.
+      </p>
+      
+      <div class="features">
+        <div class="feature">
+          <div class="feat-icon"><i data-lucide="crosshair"></i></div>
+          <div class="feat-label">Know<br>Your True Fit</div>
+        </div>
+        <div class="feature">
+          <div class="feat-icon"><i data-lucide="brain"></i></div>
+          <div class="feat-label">Make<br>Confident Decisions</div>
+        </div>
+        <div class="feature">
+          <div class="feat-icon"><i data-lucide="trending-up"></i></div>
+          <div class="feat-label">Explore<br>Better Career Options</div>
+        </div>
+      </div>
+      
+      <div class="price-row">
+        <span class="old-price">₹2,000</span>
+        <div class="new-price-badge">₹249</div>
+        <div class="off-badge">
+          <span class="off-main">87% OFF</span>
+          <span class="off-sub">Limited Time</span>
+        </div>
+      </div>
+      
+      <a class="yellowbtn hero-btn" href="#assessment-start">
+        Start Your Assessment Now <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+      </a>
+      
+      <div class="trust-row">
+        <span><i data-lucide="shield-check"></i> Secure Payment</span>
+        <span><i data-lucide="zap"></i> Instant Access</span>
+        <span><i data-lucide="file-text"></i> Personalised Report</span>
+      </div>
+    </div>
+    <div class="hero-spacer"></div>
+  </div>
+</section>
+
+<!-- LIMITED TIME OFFER BANNER -->
+<section class="offer-wrap" aria-label="Limited time offer">
+  <div class="wrap">
+    <div class="offer-card">
+      <div class="offer-left">
+        <div class="offer-icon"><i data-lucide="timer"></i></div>
+        <div class="offer-info">
+          <h3>Limited Time Offer!</h3>
+          <p>Get your personalised career report at<br>just <b>₹249</b> (<s>₹2,000</s>).</p>
+        </div>
+      </div>
+      <div class="offer-center">
+        <div class="count-label">Offer Ends In:</div>
+        <div class="timer-boxes">
+          <div class="timebox"><b id="hours">12</b><small>Hours</small></div>
+          <div class="timebox"><b id="minutes">46</b><small>Minutes</small></div>
+          <div class="timebox"><b id="seconds">38</b><small>Seconds</small></div>
+        </div>
+      </div>
+      <div class="offer-right">
+        <div class="offer-icon"><i data-lucide="users"></i></div>
+        <div class="offer-info">
+          <h3>Students across India</h3>
+          <p>are now discovering the right<br>career path with FindCollege.ai</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH-BACKED ASSESSMENT SHOWCASE -->
+<section class="showcase" id="report">
+  <div class="wrap showgrid">
+    <div class="laptop-wrap">
+      <div class="sparkles-laptop">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <line x1="12" y1="30" x2="4" y2="24" stroke="#ffd21e" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="20" y1="24" x2="25" y2="8" stroke="#ffd21e" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="26" y1="28" x2="40" y2="22" stroke="#ffd21e" stroke-width="3.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <img src="FindCollege.ai Career Assessment Report.png" alt="FindCollege.ai Career Assessment Report on Laptop" class="laptop-report-img" loading="lazy">
+    </div>
+    
+    <div class="showcopy">
+      <h2>Get Clarity with a<br><span class="yellow-highlight">Research-Backed Assessment</span></h2>
+      <p>A quick, structured and personalised assessment that helps you understand your interests, strengths and the best-fit career paths.</p>
+      
+      <div class="quick-assess-row">
+        <a href="#streamfit-detail" class="quick-assess-card quick-stream">
+          <div class="quick-icon-wrap"><i data-lucide="graduation-cap"></i></div>
+          <div class="quick-info">
+            <h4>StreamFit</h4>
+            <p class="quick-target">For Class 9–10</p>
+            <span class="quick-time"><i data-lucide="clock"></i> 12–15 min</span>
+          </div>
+          <div class="quick-arrow"><i data-lucide="arrow-right"></i></div>
+        </a>
+        <a href="#careerfit-detail" class="quick-assess-card quick-career">
+          <div class="quick-icon-wrap"><i data-lucide="briefcase"></i></div>
+          <div class="quick-info">
+            <h4>CareerFit</h4>
+            <p class="quick-target">For Class 11, 12 &amp; UG</p>
+            <span class="quick-time"><i data-lucide="clock"></i> 15–18 min</span>
+          </div>
+          <div class="quick-arrow"><i data-lucide="arrow-right"></i></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DETAILED ASSESSMENTS CARDS -->
+  <div class="wrap assess-cards-container" id="assessments">
+    <!-- StreamFit Block -->
+    <div class="assess-card-detailed stream-card" id="streamfit-detail">
+      <div class="card-top-row">
+        <span class="audience-badge stream-badge">Class 9 &amp; 10 Stream Selection</span>
+        <span class="duration-badge"><i data-lucide="clock"></i> 12–15 min</span>
+      </div>
+      
+      <div class="card-title-row">
+        <div class="card-icon-wrap stream-icon"><i data-lucide="graduation-cap"></i></div>
+        <h3>StreamFit™ Aptitude Test</h3>
+      </div>
+      
+      <p class="card-desc">
+        A psychometric test structured specifically to recommend matching streams. It measures numerical intelligence, verbal reasoning, spatial logic, and core interest profiles.
+      </p>
+      
+      <div class="card-specs-grid">
+        <div class="spec-box">
+          <span class="spec-label">Recommended Outputs</span>
+          <span class="spec-val">PCM / PCB / Commerce / Humanities</span>
+        </div>
+        <div class="spec-box">
+          <span class="spec-label">Tested Parameters</span>
+          <span class="spec-val">75 Scientific Cognitive Items</span>
+        </div>
+      </div>
+      
+      <ul class="card-features-list">
+        <li>
+          <span class="check-icon stream-check"><i data-lucide="check"></i></span>
+          <span>Solves ambiguity around Science, Commerce, and Humanities choice</span>
+        </li>
+        <li>
+          <span class="check-icon stream-check"><i data-lucide="check"></i></span>
+          <span>Identifies cognitive strengths and development modules</span>
+        </li>
+        <li>
+          <span class="check-icon stream-check"><i data-lucide="check"></i></span>
+          <span>Evaluates learning styles (Visual, Auditory, Kinesthetic)</span>
+        </li>
+      </ul>
+      
+      <div class="card-footer-actions">
+        <a href="#assessment-start" class="assess-primary-btn stream-btn">
+          Start Stream Selection <i data-lucide="arrow-right"></i>
+        </a>
+        <button type="button" class="assess-sample-btn stream-sample-btn" onclick="downloadSampleRoadmap('StreamFit', this)">
+          <i data-lucide="file-down"></i> Get Sample Roadmap (PDF)
+        </button>
+      </div>
+    </div>
+    
+    <!-- CareerFit Block -->
+    <div class="assess-card-detailed career-card" id="careerfit-detail">
+      <div class="card-top-row">
+        <span class="audience-badge career-badge">Class 11, 12 &amp; Undergraduate Students</span>
+        <span class="duration-badge"><i data-lucide="clock"></i> 15–18 min</span>
+      </div>
+      
+      <div class="card-title-row">
+        <div class="card-icon-wrap career-icon"><i data-lucide="briefcase"></i></div>
+        <h3>CareerFit™ Career Compatibility</h3>
+      </div>
+      
+      <p class="card-desc">
+        A comprehensive 20-trait vocational navigation profile measuring career compatibility with 1400+ disciplines. Calculates entry benchmarks, degrees, entrance exams, and maps a personalized roadmap.
+      </p>
+      
+      <div class="card-specs-grid">
+        <div class="spec-box">
+          <span class="spec-label">Recommended Outputs</span>
+          <span class="spec-val">1400+ Careers, Degrees &amp; Exams</span>
+        </div>
+        <div class="spec-box">
+          <span class="spec-label">Tested Parameters</span>
+          <span class="spec-val">20 psychological traits mapped</span>
+        </div>
+      </div>
+      
+      <ul class="card-features-list">
+        <li>
+          <span class="check-icon career-check"><i data-lucide="check"></i></span>
+          <span>Calculates compatibility coefficients against top-paying modern careers</span>
+        </li>
+        <li>
+          <span class="check-icon career-check"><i data-lucide="check"></i></span>
+          <span>Checks stream eligibility criteria, degree pathways, and exams</span>
+        </li>
+        <li>
+          <span class="check-icon career-check"><i data-lucide="check"></i></span>
+          <span>Outputs a customized 5-year academic roadmap (JEE/NEET/CUET &amp; more)</span>
+        </li>
+      </ul>
+      
+      <div class="card-footer-actions">
+        <a href="#assessment-start" class="assess-primary-btn career-btn">
+          Start Career Navigation <i data-lucide="arrow-right"></i>
+        </a>
+        <button type="button" class="assess-sample-btn career-sample-btn" onclick="downloadSampleRoadmap('CareerFit', this)">
+          <i data-lucide="file-down"></i> Get Sample Roadmap (PDF)
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- REPORT BENEFITS FOOTER BAR -->
+  <div class="wrap">
+    <div class="benefits-bar">
+      <div class="benefithead">
+        Your Personalised<br>Report Will Help You:
+        <span class="benefit-underline"></span>
+      </div>
+      <div class="benefit"><i data-lucide="brain"></i>Understand<br>Your Interests</div>
+      <div class="benefit"><i data-lucide="bar-chart-3"></i>Identify<br>Your Strengths</div>
+      <div class="benefit"><i data-lucide="layers"></i>Find the Right<br>Stream / Career</div>
+      <div class="benefit"><i data-lucide="book-open"></i>Explore Study<br>&amp; Career Options</div>
+      <div class="benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 22V4"/>
+          <path d="M4 4H14L12 8L14 12H4"/>
+          <path d="M12 22C14 19 18 19 20 16C22 13 20 10 16 10"/>
+        </svg>
+        Take Clear<br>Next Steps
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS SECTION -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-header">
+      <h2 class="sectiontitle">
+        How It Works?
+        <span class="sparkles-how">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 20L10 14M10 24L16 16M18 20L22 14" stroke="#ffd21e" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </h2>
+      <p class="sectionsub">Get your personalised career report in 4 simple steps.</p>
+    </div>
+    
+    <div class="steps">
+      <div class="step">
+        <div class="stepicon"><i data-lucide="mouse-pointer-click"></i></div>
+        <span class="num">1</span>
+        <div class="step-text">
+          <h3>Choose Assessment</h3>
+          <p>Select StreamFit or CareerFit.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepicon"><i data-lucide="credit-card"></i></div>
+        <span class="num">2</span>
+        <div class="step-text">
+          <h3>Complete Payment</h3>
+          <p>Pay ₹249 securely (UPI, Card, Net Banking).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepicon"><i data-lucide="clipboard-check"></i></div>
+        <span class="num">3</span>
+        <div class="step-text">
+          <h3>Take the Assessment</h3>
+          <p>Answer a series of engaging questions.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepicon"><i data-lucide="bar-chart-3"></i></div>
+        <span class="num">4</span>
+        <div class="step-text">
+          <h3>Get Your Report</h3>
+          <p>Receive a detailed, personalised report instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL STUDENTS & WHY CHOOSE SECTION -->
+<section class="proof" id="stories">
+  <div class="wrap proofgrid">
+    <div class="testimonials">
+      <div class="testi-header-row">
+        <div>
+          <h2>Real Students. <span class="yellow-highlight">Real Clarity.</span></h2>
+          <p class="sub">Here's what students say about their experience.</p>
+        </div>
+        <div class="testi-rating-badge">
+          <div class="testi-stars">★★★★★</div>
+          <span class="testi-score">4.9/5</span>
+          <span class="testi-count">(45K+ Students)</span>
+        </div>
+      </div>
+      
+      <div class="testimonial-box">
+        <div class="girl-wrap">
+          <img class="student-girl-img" src="Hopeful Student on Purple Background.png" alt="Student Ananya S.">
+        </div>
+        <div class="quote-card">
+          <div class="quote-card-top">
+            <span class="quote-symbol">“</span>
+            <div class="verified-student-tag">
+              <i data-lucide="badge-check"></i>
+              <span>Verified Assessment</span>
+            </div>
+          </div>
+          <p class="quote-text">The report gave me clarity and confidence about my next step!”</p>
+          <div class="quote-author-row">
+            <div class="quote-author-info">
+              <span class="quote-author-name">Ananya Sharma</span>
+              <span class="quote-author-school">Class 11 Student (DPS R.K. Puram, New Delhi)</span>
+            </div>
+            <div class="quote-stars-wrap">
+              <div class="stars">★★★★★</div>
+              <span class="star-rating-val">5.0</span>
+            </div>
+          </div>
+          <div class="quote-decision-pill">
+            <span class="decision-icon"><i data-lucide="compass"></i></span>
+            <span class="decision-text">Selected Stream: <b>PCM + Computing</b></span>
+            <span class="match-score">99.4% Match</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Trust micro-stats strip -->
+      <div class="testi-stats-strip">
+        <div class="testi-stat-item">
+          <span class="tsi-num">45,000+</span>
+          <span class="tsi-label">Students Guided</span>
+        </div>
+        <div class="tsi-divider"></div>
+        <div class="testi-stat-item">
+          <span class="tsi-num">98.4%</span>
+          <span class="tsi-label">Decision Clarity</span>
+        </div>
+        <div class="tsi-divider"></div>
+        <div class="testi-stat-item">
+          <span class="tsi-num">Zero</span>
+          <span class="tsi-label">Stream Regrets</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="why">
+      <div class="why-header-row">
+        <h2>Why Choose FindCollege.ai?</h2>
+        <span class="why-trust-shield"><i data-lucide="shield-check"></i> 100% Certified</span>
+      </div>
+      <div class="whygrid">
+        <div class="whyitem">
+          <div class="whyicon"><i data-lucide="shield-check"></i></div>
+          <div class="whyinfo">
+            <b>Trusted &amp; Secure</b>
+            <small>Your data is safe and private. Zero unsolicited telecaller spam.</small>
+          </div>
+        </div>
+        <div class="whyitem">
+          <div class="whyicon"><i data-lucide="crosshair"></i></div>
+          <div class="whyinfo">
+            <b>Research-Backed</b>
+            <small>Built on proven assessment methods &amp; 75+ cognitive indicators.</small>
+          </div>
+        </div>
+        <div class="whyitem">
+          <div class="whyicon"><i data-lucide="users"></i></div>
+          <div class="whyinfo">
+            <b>Student-Friendly</b>
+            <small>Simple, clear and easy to take without any exam stress.</small>
+          </div>
+        </div>
+        <div class="whyitem">
+          <div class="whyicon"><i data-lucide="headphones"></i></div>
+          <div class="whyinfo">
+            <b>Dedicated Support</b>
+            <small>We're here to help guide your academic &amp; career journey whenever needed.</small>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Trust badges footer -->
+      <div class="why-trust-footer">
+        <div class="trust-seal-item">
+          <i data-lucide="lock"></i>
+          <span>256-Bit SSL Encrypted</span>
+        </div>
+        <div class="trust-seal-sep">•</div>
+        <div class="trust-seal-item">
+          <i data-lucide="credit-card"></i>
+          <span>Razorpay Secured</span>
+        </div>
+        <div class="trust-seal-sep">•</div>
+        <div class="trust-seal-item">
+          <i data-lucide="file-text"></i>
+          <span>15-Page Report</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQS SECTION -->
+<section class="faq-section" id="faqs">
+  <div class="wrap">
+    <div class="faq-container">
+      <div class="faq-header">
+        <div class="faq-icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M8 22C8 14.268 14.268 8 22 8C29.732 8 36 14.268 36 22C36 29.732 29.732 36 22 36C19.5 36 17.2 35.3 15.2 34.1L8 36L9.9 28.8C8.7 26.8 8 24.5 8 22Z" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 19C19 17.34 20.34 16 22 16C23.66 16 25 17.34 25 19C25 20.8 22 22 22 24" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="22" cy="28.5" r="1.5" fill="#7c3aed"/>
+          </svg>
+        </div>
+        <h2>Frequently<br><span class="faq-yellow-wrap">Asked Questions<span class="faq-brush"></span></span></h2>
+      </div>
+      <div class="faq-columns">
+        <div class="faq-col">
+          <!-- Question 1 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>Who can take this assessment?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              <p><strong>StreamFit</strong> is designed for students in Class 9 and 10 who want to understand which academic stream may align with their interests and strengths.</p>
+              <p style="margin-top: 8px;"><strong>CareerFit</strong> is designed for students in Class 11, Class 12 and undergraduate students who want to explore suitable career directions.</p>
+            </div>
+          </div>
+          <!-- Question 3 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>How long does it take?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              StreamFit takes approximately <strong>12–15 minutes</strong>, while CareerFit takes approximately <strong>15–18 minutes</strong>. Take your time and answer each question honestly.
+            </div>
+          </div>
+          <!-- Question 5 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>What will I get in the report?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              You will receive a <strong>detailed, personalised 15-page assessment report</strong> based on your responses. It provides comprehensive insights into your interests, strengths, preferences and suitable stream or career directions.
+            </div>
+          </div>
+        </div>
+        <div class="faq-col">
+          <!-- Question 2 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>Is my payment secure?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              Yes. You can complete your assessment payment securely through our integrated Razorpay payment gateway. Once your ₹249 payment is successfully confirmed, you can start your assessment.
+            </div>
+          </div>
+          <!-- Question 4 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>Can it really help me choose a career?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              Yes. FindCollege.ai helps you understand your interests, strengths and preferences through a structured assessment. It provides insights into potential career directions, helping you make more informed decisions about your future.
+            </div>
+          </div>
+          <!-- Question 6 -->
+          <div class="faqitem">
+            <button class="faqquestion" aria-expanded="false">
+              <span>Can I retake the assessment later?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faqanswer">
+              Yes! You can retake the assessment to revisit your responses and explore your preferences again. Your retake experience will follow the applicable product and payment policy.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA SECTION -->
+<section class="finalcta" id="assessment-start">
+  <div class="wrap">
+    <h2>Find the Right Stream. Build the Right Career.</h2>
+    <p>Take the assessment now and move one step closer to a future you'll love.</p>
+    
+    <div class="finalcta-btn-wrap">
+      <div class="cta-sparkle-left">
+        <svg width="34" height="24" viewBox="0 0 34 24" fill="none">
+          <path d="M4 22L14 2M14 22L24 6M24 22L30 12" stroke="#ffd21e" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <a class="yellowbtn final-cta-btn" href="#assessments">
+        Start Your Assessment for ₹249 <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+      </a>
+      <div class="cta-sparkle-right">
+        <svg width="34" height="24" viewBox="0 0 34 24" fill="none">
+          <path d="M30 22L20 2M20 22L10 6M10 22L4 12" stroke="#ffd21e" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div class="finalcta-wave">
+    <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none">
+      <path d="M-100 70 C 250 110, 550 -20, 950 50 C 1200 85, 1450 30, 1600 70" stroke="rgba(168, 85, 247, 0.55)" stroke-width="2" fill="none"/>
+      <path d="M-100 85 C 350 120, 750 15, 1150 75 C 1350 95, 1500 55, 1600 85" stroke="rgba(0, 213, 232, 0.45)" stroke-width="1.8" fill="none"/>
+      <path d="M-100 55 C 200 95, 600 -10, 1050 45 C 1280 75, 1480 20, 1600 55" stroke="rgba(217, 70, 239, 0.35)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © <span id="year">2026</span> FindCollege.ai. All rights reserved.
+</footer>
+
+<script>
+if (window.lucide) lucide.createIcons();
+
+// Mobile Hamburger Menu
+const menu = document.getElementById('hamb');
+const links = document.getElementById('navlinks');
+menu.addEventListener('click', () => {
+  const open = links.classList.toggle('show');
+  menu.setAttribute('aria-expanded', String(open));
+  menu.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+  lucide.createIcons();
+});
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  links.classList.remove('show');
+  menu.setAttribute('aria-expanded', 'false');
+  menu.innerHTML = '<i data-lucide="menu"></i>';
+  lucide.createIcons();
+}));
+
+// Accordion FAQ toggle
+document.querySelectorAll('.faqquestion').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faqitem');
+    const wasOpen = item.classList.contains('open');
+    item.classList.toggle('open', !wasOpen);
+    btn.setAttribute('aria-expanded', String(!wasOpen));
+  });
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Live Countdown Timer
+let deadline = Number(localStorage.getItem('findcollegeOfferDeadline'));
+if (!deadline || deadline < Date.now()) {
+  deadline = Date.now() + (12 * 3600 + 46 * 60 + 38) * 1000;
+  localStorage.setItem('findcollegeOfferDeadline', String(deadline));
+}
+function tick() {
+  let left = Math.max(0, deadline - Date.now());
+  const h = Math.floor(left / 3600000);
+  const m = Math.floor((left % 3600000) / 60000);
+  const s = Math.floor((left % 60000) / 1000);
+  document.getElementById('hours').textContent = String(h).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+  if (left <= 0) {
+    deadline = Date.now() + (12 * 3600 + 46 * 60 + 38) * 1000;
+    localStorage.setItem('findcollegeOfferDeadline', String(deadline));
+  }
+}
+tick();
+setInterval(tick, 1000);
+
+// ==========================================
+// 5-YEAR ACADEMIC & CAREER ROADMAP PDF GENERATOR
+// ==========================================
+function downloadSampleRoadmap(trackType, btn) {
+  const originalHtml = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px;">⏳ Generating PDF...</span>';
+    btn.disabled = true;
+  }
+
+  // Ensure jsPDF is loaded
+  function generateDoc() {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+
+      const primaryColor = [10, 15, 55];       // Deep Corporate Navy
+      const cyanColor = [0, 213, 232];        // Brand Cyan .AI
+      const yellowColor = [255, 213, 30];     // Gold Highlight
+      const purpleColor = [109, 40, 217];     // Royal Purple
+      const darkText = [15, 23, 42];          // Slate Dark
+      const mutedText = [71, 85, 105];        // Slate Muted Gray
+      const borderGray = [226, 232, 240];     // Subtle Border
+
+      // Safe multi-line printer with exact boundaries
+      function printSafeText(text, x, y, maxWidth, lineHeight, options = {}) {
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, x, y, options);
+        return lines.length * lineHeight;
+      }
+
+      // ==========================================
+      // PAGE 1: EXECUTIVE DIAGNOSTIC PROFILE
+      // ==========================================
+      // Header Banner (Full Bleed across 210mm)
+      doc.setFillColor(...primaryColor);
+      doc.rect(0, 0, 210, 24, 'F');
+      doc.setFillColor(...yellowColor);
+      doc.rect(0, 24, 210, 1.2, 'F');
+
+      // Logo (Gotham Style: FINDCOLLEGE in normal weight, .AI in bold)
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(15);
+      doc.setTextColor(255, 255, 255);
+      doc.text('FINDCOLLEGE', 14, 15.5);
+      const fcW = doc.getTextWidth('FINDCOLLEGE');
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...cyanColor);
+      doc.text('.AI', 14 + fcW, 15.5);
+
+      // Header Right Info (Aligned strictly inside 196mm margin)
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...yellowColor);
+      doc.text('OFFICIAL PSYCHOMETRIC SPECIMEN', 196, 11.5, { align: 'right' });
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(203, 213, 225);
+      doc.text('5-YEAR STRATEGIC ACADEMIC ROADMAP', 196, 16.5, { align: 'right' });
+
+      // Document Title & Subtitle
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13.5);
+      doc.setTextColor(...primaryColor);
+      doc.text('NEXT 5-YEAR ACADEMIC & CAREER NAVIGATION ROADMAP', 14, 33);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(...mutedText);
+      doc.text('Scientific Cognitive Profiling, Stream Precision, Entrance Exam Timeline & Placement Projection', 14, 38);
+
+      // Candidate Diagnostic Metadata Strip
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(...borderGray);
+      doc.roundedRect(14, 42, 182, 13, 3, 3, 'FD');
+      doc.setFontSize(7.8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...darkText);
+      doc.text('ASSESSMENT TRACK:', 18, 50);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text(trackType === 'StreamFit' ? 'StreamFit (TM) Aptitude Battery (Class 9-10)' : 'CareerFit (TM) Vocational Index (Class 11, 12 & UG)', 53, 50);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...darkText);
+      doc.text('STATUS:', 142, 50);
+      doc.setTextColor(22, 163, 74);
+      doc.text('VERIFIED SPECIMEN', 156, 50);
+
+      // Section 1: Psychometric Cognitive Archetype & Aptitude Matrix
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...primaryColor);
+      doc.text('1. PSYCHOMETRIC COGNITIVE ARCHETYPE & APTITUDE MATRIX', 14, 62);
+
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(216, 180, 254);
+      doc.roundedRect(14, 65, 182, 58, 4, 4, 'FD');
+
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text('COGNITIVE ARCHETYPE: ANALYTICAL STRATEGIST (92ND PERCENTILE)', 20, 73);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.8);
+      doc.setTextColor(...mutedText);
+      printSafeText(
+        'Demonstrates superior spatial visualization, quantitative agility, and systemic decision-making. Cognitive architecture indicates highest career velocity in Applied Sciences, Technology, and Quantitative Economics.',
+        20, 78, 170, 3.8
+      );
+
+      // 4 Progress Bars (2x2 Grid with safe boundaries: width 76mm each)
+      const bars = [
+        { label: 'Numerical & Quantitative Logic', val: 92, pct: '92%', col: [109, 40, 217], x: 20, y: 90 },
+        { label: 'Spatial & Abstract Reasoning', val: 86, pct: '86%', col: [37, 99, 235], x: 110, y: 90 },
+        { label: 'Applied Systems & Logic', val: 81, pct: '81%', col: [234, 88, 12], x: 20, y: 105 },
+        { label: 'Verbal Synthesis & Decision Agility', val: 78, pct: '78%', col: [13, 148, 136], x: 110, y: 105 }
+      ];
+      bars.forEach(b => {
+        doc.setFontSize(7.4);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...darkText);
+        doc.text(b.label, b.x, b.y);
+        doc.text(b.pct, b.x + 76, b.y, { align: 'right' });
+        // Background track
+        doc.setFillColor(241, 245, 249);
+        doc.roundedRect(b.x, b.y + 2, 76, 4, 2, 2, 'F');
+        // Filled bar
+        doc.setFillColor(...b.col);
+        doc.roundedRect(b.x, b.y + 2, (76 * b.val) / 100, 4, 2, 2, 'F');
+      });
+
+      // Section 2: Stream Selection Diagnostics (StreamFit)
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...primaryColor);
+      doc.text('2. STREAMFIT (TM) STREAM SELECTION DIAGNOSTICS (CLASS 9 & 10)', 14, 130);
+
+      doc.setFillColor(250, 245, 255);
+      doc.setDrawColor(216, 180, 254);
+      doc.roundedRect(14, 133, 182, 48, 4, 4, 'FD');
+
+      // Primary Stream Row
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text('PRIMARY STREAM:', 20, 141);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...darkText);
+      doc.text('PCM (Physics, Chemistry, Math) + Computing / Economics', 56, 141);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(22, 163, 74);
+      doc.text('[ 96% Match ]', 190, 141, { align: 'right' });
+
+      // Secondary Stream Row
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text('SECONDARY TRACK:', 20, 148);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...darkText);
+      doc.text('Commerce with Applied Mathematics OR Design Technology', 56, 148);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...mutedText);
+      doc.text('[ 84% Match ]', 190, 148, { align: 'right' });
+
+      // Cognitive Validation Row (Carefully Wrapped inside bounds, maxWidth = 134mm)
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text('VALIDATION:', 20, 156);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.6);
+      doc.setTextColor(...mutedText);
+      printSafeText(
+        'Eliminates Science vs Commerce dilemma. Strong spatial-numerical index validates STEM readiness while protecting against early academic burnout in non-compatible streams.',
+        56, 156, 134, 3.8
+      );
+
+      // Advisory Electives Strip
+      doc.setFillColor(243, 232, 255);
+      doc.roundedRect(18, 167, 174, 8, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.2);
+      doc.setTextColor(...purpleColor);
+      doc.text('Recommended Electives: Mathematics + Computer Science / Informatics Practices + Physics', 22, 172.5);
+
+      // Section 3: CareerFit Vocational Compatibility
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...primaryColor);
+      doc.text('3. CAREERFIT (TM) 20-TRAIT VOCATIONAL COMPATIBILITY (CLASS 11, 12 & UG)', 14, 188);
+
+      doc.setFillColor(240, 253, 250);
+      doc.setDrawColor(125, 211, 252);
+      doc.roundedRect(14, 191, 182, 53, 4, 4, 'FD');
+
+      const careers = [
+        { rank: '1', title: 'AI Systems Architect & Machine Learning Engineer', fit: '94% Compatibility', col: [14, 165, 233] },
+        { rank: '2', title: 'Quantitative Product Strategist & Systems Consultant', fit: '91% Compatibility', col: [13, 148, 136] },
+        { rank: '3', title: 'FinTech, Algorithmic Trading & Investment Analytics', fit: '88% Compatibility', col: [109, 40, 217] },
+        { rank: '4', title: 'Enterprise Cloud Architecture & Distributed Systems', fit: '85% Compatibility', col: [79, 70, 229] }
+      ];
+      careers.forEach((c, i) => {
+        const rowY = 200 + i * 8;
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(20, rowY - 4, 170, 7, 2, 2, 'F');
+        doc.setFontSize(7.8);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...darkText);
+        doc.text(`${c.rank}. ${c.title}`, 24, rowY + 0.8);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...c.col);
+        doc.text(c.fit, 186, rowY + 0.8, { align: 'right' });
+      });
+
+      doc.setFontSize(7.3);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...mutedText);
+      doc.text('Optimal Degree Gateways: B.Tech (CS / AI / Data), B.S. Economics & Data, Integrated Tech-MBA, or B.Stat.', 20, 238);
+
+      // Section 4: Advisory Takeaway
+      doc.setFillColor(...primaryColor);
+      doc.roundedRect(14, 248, 182, 26, 3, 3, 'F');
+      doc.setFontSize(8.2);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...yellowColor);
+      doc.text('KEY ADVISORY TAKEAWAY FOR PARENTS & STUDENTS:', 20, 256);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.6);
+      doc.setTextColor(241, 245, 249);
+      printSafeText(
+        'Students following structured 5-year diagnostic roadmaps have a 3.4x higher rate of Tier-1 college admissions and avoid costly mid-degree stream switches. Proceed to Page 2 for the chronological Year-by-Year blueprint.',
+        20, 262, 170, 4.0
+      );
+
+      // Page 1 Footer
+      doc.setFontSize(7.2);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...mutedText);
+      doc.text('FINDCOLLEGE.AI Research Engine  |  Confidential Psychometric Specimen', 14, 288);
+      doc.text('Page 1 of 3', 196, 288, { align: 'right' });
+
+      // ==========================================
+      // PAGE 2: THE 5-YEAR CHRONOLOGICAL BLUEPRINT
+      // ==========================================
+      doc.addPage();
+
+      // Top strip
+      doc.setFillColor(...primaryColor);
+      doc.rect(0, 0, 210, 15, 'F');
+      doc.setFillColor(...yellowColor);
+      doc.rect(0, 15, 210, 1, 'F');
+
+      // Header logo
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(255, 255, 255);
+      doc.text('FINDCOLLEGE', 14, 10.5);
+      const fcW2 = doc.getTextWidth('FINDCOLLEGE');
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...cyanColor);
+      doc.text('.AI', 14 + fcW2, 10.5);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('MASTER 5-YEAR STRATEGIC ACADEMIC ROADMAP (YEAR 1 TO 5)', 196, 10.5, { align: 'right' });
+
+      // 5 Year Milestone Cards
+      const years = [
+        {
+          num: 'YEAR 1',
+          stage: 'CLASS 10/11 - PHASE 1: FOUNDATION & STREAM LOCK-IN',
+          badgeCol: [109, 40, 217],
+          focus: 'Core Concept Fortification, Stream Lock-in & Habit Systems',
+          actions: [
+            'Finalize primary stream (PCM / PCB / Commerce / Humanities) with zero second-guessing.',
+            'Eliminate conceptual gaps in fundamental Math and Sciences via weekly diagnostic tests.',
+            'Establish 3-hour daily deep-focus blocks and structured problem-solving habit loops.'
+          ],
+          milestone: 'MILESTONE: Board concept mastery 60 days ahead; NTSE / Olympiad benchmark.'
+        },
+        {
+          num: 'YEAR 2',
+          stage: 'CLASS 11/12 - PHASE 2: COMPETITIVE ENTRANCE STRATEGY',
+          badgeCol: [225, 29, 72],
+          focus: 'High-Stakes Entrance Exam Preparation & Board Synchronization',
+          actions: [
+            'Execute dual-track preparation for JEE Main/Adv, NEET, CUET, IPMAT, or CLAT.',
+            'Maintain minimum 85%+ aggregate target in School Board examination syllabi.',
+            'Practice 50+ full-length computer-based mock exams with error log analysis.'
+          ],
+          milestone: 'MILESTONE: Speed mastery (<85s per question); finalize target Tier-1 college list.'
+        },
+        {
+          num: 'YEAR 3',
+          stage: 'UNDERGRAD YEAR 1 - PHASE 3: CAMPUS ONBOARDING & TOOLS',
+          badgeCol: [37, 99, 235],
+          focus: 'First-Year GPA Defense, Core Tool Architecture & Campus Leadership',
+          actions: [
+            'Protect first-year CGPA (>8.5/10) to secure academic merit scholarships and branch consistency.',
+            'Master core technical stack: Python, SQL, Financial Modeling, and Professional Writing.',
+            'Join premier collegiate technical, finance, or consulting societies to build peer networks.'
+          ],
+          milestone: 'MILESTONE: Publish 2 hands-on applied portfolio projects on GitHub & LinkedIn.'
+        },
+        {
+          num: 'YEAR 4',
+          stage: 'UNDERGRAD YEAR 2/3 - PHASE 4: SPECIALIZATION & INTERNSHIP',
+          badgeCol: [13, 148, 136],
+          focus: 'High-Stakes Corporate Summer Internship & Production-Grade Capstones',
+          actions: [
+            'Secure a competitive Tier-1 Corporate Summer Internship (Tech, Consulting, Analytics, Banking).',
+            'Develop an end-to-end production-grade capstone project solving an actual industry problem.',
+            'Participate in national hackathons, case competitions, and research paper presentations.'
+          ],
+          milestone: 'MILESTONE: Summer corporate offer letter in hand; mentorship cadence with 50+ alumni.'
+        },
+        {
+          num: 'YEAR 5',
+          stage: 'GRADUATION YEAR - PHASE 5: CAREER LAUNCH & GLOBAL PATHWAYS',
+          badgeCol: [180, 83, 9],
+          focus: 'Pre-Placement Offer (PPO) Conversion, Campus Day-1 & Higher Ed Gateways',
+          actions: [
+            'Convert Summer Internship into a full-time PPO or secure Day-1 dream campus placement offer.',
+            'Optional Higher-Ed track: Execute CAT / GMAT (Top IIMs/ISB) or GRE / TOEFL (Global Top 50).',
+            'Establish a 5-year personal wealth, early financial independence, and career acceleration plan.'
+          ],
+          milestone: 'MILESTONE: High-compensation placement (INR 12L - 35L+ CTC band); launch lifelong career.'
+        }
+      ];
+
+      years.forEach((yr, idx) => {
+        const cardY = 22 + idx * 51;
+        // Background card
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(...borderGray);
+        doc.roundedRect(14, cardY, 182, 47, 3, 3, 'FD');
+
+        // Badge banner
+        doc.setFillColor(...yr.badgeCol);
+        doc.roundedRect(14, cardY, 182, 7.5, 3, 3, 'F');
+        doc.rect(14, cardY + 4.5, 182, 3, 'F'); // square bottom
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(255, 255, 255);
+        doc.text(`${yr.num} | ${yr.stage}`, 18, cardY + 5.2);
+
+        // Focus subhead
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(...primaryColor);
+        doc.text(`Primary Objective: ${yr.focus}`, 18, cardY + 13.5);
+
+        // Actions (Wrapped safely within 168mm)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.4);
+        doc.setTextColor(...darkText);
+        yr.actions.forEach((act, actIdx) => {
+          printSafeText(`-  ${act}`, 18, cardY + 19.5 + actIdx * 5.2, 168, 3.8);
+        });
+
+        // Milestones strip
+        doc.setFillColor(248, 250, 252);
+        doc.roundedRect(18, cardY + 36.5, 174, 6.8, 2, 2, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.2);
+        doc.setTextColor(...yr.badgeCol);
+        doc.text(yr.milestone, 21, cardY + 41.2);
+      });
+
+      // Page 2 Footer
+      doc.setFontSize(7.2);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...mutedText);
+      doc.text('FINDCOLLEGE.AI Research Engine  |  Master Chronological Transition Plan', 14, 288);
+      doc.text('Page 2 of 3', 196, 288, { align: 'right' });
+
+      // ==========================================
+      // PAGE 3: EXECUTION BLUEPRINT & QUALITY SEAL
+      // ==========================================
+      doc.addPage();
+
+      // Top strip
+      doc.setFillColor(...primaryColor);
+      doc.rect(0, 0, 210, 15, 'F');
+      doc.setFillColor(...yellowColor);
+      doc.rect(0, 15, 210, 1, 'F');
+
+      // Header logo
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(255, 255, 255);
+      doc.text('FINDCOLLEGE', 14, 10.5);
+      const fcW3 = doc.getTextWidth('FINDCOLLEGE');
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...cyanColor);
+      doc.text('.AI', 14 + fcW3, 10.5);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('EXECUTION BLUEPRINT & QUALITY ASSURANCE SEAL', 196, 10.5, { align: 'right' });
+
+      // Section: Career Benchmark Matrix Table
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...primaryColor);
+      doc.text('HIGH-GROWTH CAREER BENCHMARK & COMPENSATION MATRIX', 14, 23);
+
+      // Table Header (Width: 182mm from 14 to 196)
+      doc.setFillColor(...primaryColor);
+      doc.roundedRect(14, 26, 182, 7.5, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.2);
+      doc.setTextColor(255, 255, 255);
+      doc.text('CAREER SPECIALIZATION', 18, 31.2);
+      doc.text('5-YR DEMAND TREND', 94, 31.2);
+      doc.text('STARTING SALARY CTC', 140, 31.2);
+      doc.text('FIT SCORE', 192, 31.2, { align: 'right' });
+
+      const matrixRows = [
+        { role: 'AI Systems Architect & Machine Learning Engineer', demand: 'Exponential (+34% YoY)', salary: 'INR 14L - 32L CTC', score: '94%' },
+        { role: 'Quantitative Product Strategist & Consultant', demand: 'High Growth (+26% YoY)', salary: 'INR 12L - 28L CTC', score: '91%' },
+        { role: 'FinTech & Algorithmic Investment Analyst', demand: 'High Growth (+22% YoY)', salary: 'INR 12L - 26L CTC', score: '88%' },
+        { role: 'Cloud Infrastructure & Security Architect', demand: 'Steady (+20% YoY)', salary: 'INR 10L - 24L CTC', score: '85%' },
+        { role: 'Cognitive UX Systems & Behavioral Analytics Lead', demand: 'Steady (+18% YoY)', salary: 'INR 10L - 22L CTC', score: '82%' }
+      ];
+
+      matrixRows.forEach((row, rIdx) => {
+        const rowY = 33.5 + rIdx * 7.5;
+        doc.setFillColor(rIdx % 2 === 0 ? 255 : 248, rIdx % 2 === 0 ? 255 : 250, rIdx % 2 === 0 ? 255 : 252);
+        doc.rect(14, rowY, 182, 7.5, 'F');
+        doc.setDrawColor(...borderGray);
+        doc.line(14, rowY + 7.5, 196, rowY + 7.5);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.2);
+        doc.setTextColor(...darkText);
+        doc.text(row.role, 18, rowY + 5.2);
+
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(22, 163, 74);
+        doc.text(row.demand, 94, rowY + 5.2);
+
+        doc.setTextColor(...darkText);
+        doc.text(row.salary, 140, rowY + 5.2);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...purpleColor);
+        doc.text(row.score, 192, rowY + 5.2, { align: 'right' });
+      });
+
+      // Immediate 90-Day Execution Action Checklist
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...primaryColor);
+      doc.text('IMMEDIATE 90-DAY STRATEGIC ACTION CHECKLIST', 14, 78);
+
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(216, 180, 254);
+      doc.roundedRect(14, 81, 182, 58, 4, 4, 'FD');
+
+      const checklist = [
+        {
+          period: 'WEEKS 1-2',
+          head: 'Comprehensive Psychometric Battery Calibration',
+          desc: 'Complete all 75 scientific items on the testing portal to finalize sub-domain percentiles.'
+        },
+        {
+          period: 'WEEKS 3-4',
+          head: '1-on-1 Academic Counseling & Stream Confirmation',
+          desc: 'Review diagnostic findings with a verified academic advisor to eliminate stream doubts.'
+        },
+        {
+          period: 'WEEKS 5-8',
+          head: 'Resource Selection & Study Rhythm Blueprint',
+          desc: 'Procure recommended textbook editions and establish structured 3-hour deep-work blocks.'
+        },
+        {
+          period: 'WEEKS 9-12',
+          head: 'Baseline Full-Length Diagnostic Mock Test',
+          desc: 'Attempt first timed baseline diagnostic assessment to identify high-priority revision chapters.'
+        }
+      ];
+
+      checklist.forEach((item, cIdx) => {
+        const itemY = 88.5 + cIdx * 12.5;
+        // Week Pill
+        doc.setFillColor(237, 233, 254);
+        doc.roundedRect(20, itemY - 3.5, 22, 6, 2, 2, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(6.8);
+        doc.setTextColor(...purpleColor);
+        doc.text(item.period, 31, itemY + 0.6, { align: 'center' });
+
+        // Item Header
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.8);
+        doc.setTextColor(...darkText);
+        doc.text(`[OK] ${item.head}`, 46, itemY - 0.2);
+
+        // Item Description (Wrapped with safe maxWidth = 142mm)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.2);
+        doc.setTextColor(...mutedText);
+        printSafeText(item.desc, 46, itemY + 4, 142, 3.5);
+      });
+
+      // Official Quality Seal & Advisory Commitment Box
+      doc.setFillColor(250, 245, 255);
+      doc.setDrawColor(168, 85, 247);
+      doc.setLineWidth(0.8);
+      doc.roundedRect(14, 145, 182, 118, 5, 5, 'FD');
+
+      // Seal Header Ribbon
+      doc.setFillColor(...primaryColor);
+      doc.roundedRect(20, 151, 170, 11, 3, 3, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(...yellowColor);
+      doc.text('FINDCOLLEGE.AI VERIFIED PSYCHOMETRIC METHODOLOGY', 105, 158, { align: 'center' });
+
+      // Subtitle
+      doc.setFontSize(7.8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...purpleColor);
+      doc.text('Normed on 100,000+ Indian Students across CBSE, ICSE, State Boards & Premier Universities', 105, 168, { align: 'center' });
+
+      // Body Paragraph (Properly Wrapped with maxWidth = 168mm)
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(...darkText);
+      const methodologyText = 'Every student possesses a unique cognitive archetype and emotional temperament. The FindCollege.ai 5-Year Academic Roadmap bridges the critical gap between rote school marks and modern high-value careers. By calibrating numerical agility, spatial reasoning, and behavioral affinities early, our diagnostic engine prevents irreversible stream switches, saves years of academic hesitation, and prepares students for premier institutions (IITs, NITs, IIMs, AIIMS, BITS, National Law Universities, and Global Top 50 Programmes).';
+      printSafeText(methodologyText, 21, 174, 168, 4.0);
+
+      // Trust Badges inside Seal
+      const trustCols = [
+        { label: 'Scientifically Validated', sub: 'Normed on 100K+ cohorts' },
+        { label: 'Longitudinal Alignment', sub: 'Updated for 2026-2030 market' },
+        { label: 'Zero-Spam Privacy Pledge', sub: 'Strict data confidentiality' }
+      ];
+      trustCols.forEach((tc, tIdx) => {
+        const tx = 21 + tIdx * 58;
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(216, 180, 254);
+        doc.roundedRect(tx, 199, 54, 18, 3, 3, 'FD');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...primaryColor);
+        doc.text(tc.label, tx + 27, 206.5, { align: 'center' });
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(6.8);
+        doc.setTextColor(...mutedText);
+        doc.text(tc.sub, tx + 27, 212, { align: 'center' });
+      });
+
+      // Green Verification Pill
+      doc.setFillColor(220, 252, 231);
+      doc.setDrawColor(134, 239, 172);
+      doc.roundedRect(35, 224, 140, 7.5, 3.5, 3.5, 'FD');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(22, 163, 74);
+      doc.text('OFFICIALLY ISSUED SPECIMEN  |  AUTHENTICATED FOR STUDENT EVALUATION', 105, 229, { align: 'center' });
+
+      // Support & Helpline
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...mutedText);
+      doc.text('Need guidance on interpreting your report? Connect with a Certified Counselor at support@findcollege.ai', 105, 248, { align: 'center' });
+
+      // Page 3 Footer
+      doc.setFontSize(7.2);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...mutedText);
+      doc.text('Copyright 2026 FindCollege.ai. All rights reserved.  |  Official Specimen Report', 14, 288);
+      doc.text('Page 3 of 3', 196, 288, { align: 'right' });
+
+      // Save PDF automatically
+      doc.save(`FindCollege_5_Year_Academic_Career_Roadmap_${trackType}.pdf`);
+
+      if (btn) {
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px;color:#16a34a;">✓ Downloaded!</span>';
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+          if (window.lucide) lucide.createIcons();
+        }, 2500);
+      }
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      if (btn) {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+        if (window.lucide) lucide.createIcons();
+      }
+      alert('Unable to generate PDF. Please ensure jsPDF is available or try again.');
+    }
+  }
+
+  // Check if jsPDF library is already loaded
+  if (window.jspdf && window.jspdf.jsPDF) {
+    generateDoc();
+  } else {
+    // Dynamically inject script if not ready
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    script.onload = () => {
+      generateDoc();
+    };
+    script.onerror = () => {
+      if (btn) {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+      }
+      alert('PDF service temporarily loading. Please check your internet connection.');
+    };
+    document.head.appendChild(script);
+  }
+}
+</script>
+</body>
+</html>
